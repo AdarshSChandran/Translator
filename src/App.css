@@ -42,6 +42,7 @@ body{
   height: 35vh;
   background-color: #ffffff;
   border-radius: 20px;
+  position: relative;
   /* box-shadow: 1px 1px 1px 1px lightgrey; */
 }
 .outputText{
@@ -49,6 +50,8 @@ body{
   height: 35vh;
   background-color: #f3f4f9;
   border-radius: 20px;
+  position: relative;
+
 }
 
 .inputTextArea{
@@ -59,6 +62,7 @@ body{
   height: 100%;
   resize:none;
   border-radius: 0px 0px 20px 20px;
+ 
   /* border: 1px solid red; */
 }
 .outputTextArea{
@@ -78,4 +82,44 @@ body{
   justify-content: center;
   align-items: center;
   padding: 5px;
+}
+
+/* .clip1{
+  position: absolute;
+  bottom: 10px;
+}
+.clip2{
+  position: absolute;
+  bottom: 10px;
+  right:  10px;
+  
+} */
+
+
+
+
+
+@media all and (max-width:1100px){
+  .main{
+    max-width: 100%;
+  }
+}
+@media all and (max-width:800px){
+  .upper{
+
+  }
+  .bottom{
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 100%;
+    /* border:2px solid green; */
+  }
+  .InputText{
+    width: 100%;
+  }
+  .outputText{
+    width: 100%;
+
+  }
 }

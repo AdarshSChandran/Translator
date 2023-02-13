@@ -1,12 +1,10 @@
-import { SyncAlt } from "@mui/icons-material";
-import { Autocomplete, Box, Container,  TextField } from "@mui/material";
+import { ContentPaste, SyncAlt } from "@mui/icons-material";
+import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Body = () => {
-
   const [Totallanguages, setTotalLanguages] = useState([]);
   const [inputLanguage, setinputLanguage] = useState({
     name: "English",
@@ -35,8 +33,6 @@ const Body = () => {
       );
       if (languages.status == 200) {
         setTotalLanguages(languages.data.data.languages);
-        // setDefaultlanguage(languages.data.data.languages[0].name);
-        console.log(languages.data.data.languages[0].name);
       }
     } catch (error) {
       console.log(error);
@@ -89,7 +85,6 @@ const Body = () => {
     Translate();
   }, [outputLanguage]);
 
-
   // console.log(inputLanguage);
 
   const handleExchange = () => {
@@ -138,8 +133,8 @@ const Body = () => {
                     {...params}
                     label=""
                     sx={{
-                      "& fieldset": { border: 'none' },
-                      input: {textAlign: "center"}
+                      "& fieldset": { border: "none" },
+                      input: { textAlign: "center" },
                     }}
                     placeholder="Select Language"
                   />
@@ -147,7 +142,9 @@ const Body = () => {
               }}
             />
           </div>
-          <div className="arrow" onClick={handleExchange}><SyncAlt /> </div>
+          <div className="arrow" onClick={handleExchange}>
+            <SyncAlt />{" "}
+          </div>
           <div className="outputLanguage">
             <Autocomplete
               disablePortal
@@ -162,21 +159,24 @@ const Body = () => {
               getOptionLabel={(Totallanguages) => Totallanguages.name || ""}
               // isOptionEqualToValue={(option, value) => option.id === value.id}
               popupIcon=""
-              sx={{ width: "100%", backgroundColor: "#ffffff"}}
+              sx={{ width: "100%", backgroundColor: "#ffffff" }}
               renderOption={(props, option) => (
-                <Box component="li" {...props} key={option.code} >
+                <Box component="li" {...props} key={option.code}>
                   {option.name}
                 </Box>
               )}
               renderInput={(params) => (
-                <TextField {...params} label="" 
-                sx={{
-                  "& fieldset": { border: 'none'},
-                  input: {textAlign: "center"}
-                  // "display":"flex",
-                }}
-                // inputProps={{min: 0, style: { textAlign: 'center' }}}
-                placeholder="Select Language" />
+                <TextField
+                  {...params}
+                  label=""
+                  sx={{
+                    "& fieldset": { border: "none" },
+                    input: { textAlign: "center" },
+                    // "display":"flex",
+                  }}
+                  // inputProps={{min: 0, style: { textAlign: 'center' }}}
+                  placeholder="Select Language"
+                />
               )}
             />
           </div>
@@ -193,6 +193,14 @@ const Body = () => {
               // onKeyUp={abc}
               // onKeyDown={clrr}
             ></textarea>
+            <div className="clip1">
+              <CopyToClipboard text={inputTextArea}>
+                <ContentPaste
+                  fontSize="small"
+                  sx={{ position: "absolute", bottom: "12px", left: "10px" }}
+                />
+              </CopyToClipboard>
+            </div>
           </div>
           <div className="outputText">
             <textarea
@@ -201,6 +209,14 @@ const Body = () => {
               readOnly
               value={inputTextArea.length !== 0 ? outputTextArea : ""}
             ></textarea>
+            <div className="clip1">
+              <CopyToClipboard text={outputTextArea}>
+                <ContentPaste
+                  fontSize="small"
+                  sx={{ position: "absolute", bottom: "12px", right: "10px" }}
+                />
+              </CopyToClipboard>
+            </div>
           </div>
         </div>
       </div>
