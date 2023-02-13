@@ -1,7 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { ContentPaste, SyncAlt } from "@mui/icons-material";
-import { Autocomplete, Box, Container, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Container,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -145,7 +151,7 @@ const Body = () => {
             <SyncAlt
               sx={{
                 cursor: "pointer",
-                fontSize:"20px",
+                fontSize: "20px",
                 "&:hover": {
                   background: "#f5f7f9",
                 },
@@ -210,26 +216,30 @@ const Body = () => {
             ></textarea>
             <div className="clip1">
               <CopyToClipboard text={inputTextArea}>
-                <ContentPaste
-                  fontSize="small"
-                  sx={{ position: "absolute", bottom: "12px", left: "10px" }}
-                />
+                <Tooltip title="Copy">
+                  <ContentPaste
+                    fontSize="small"
+                    sx={{ position: "absolute", bottom: "12px", left: "10px" }}
+                  />
+                </Tooltip>
               </CopyToClipboard>
             </div>
           </div>
           <div className="outputText">
             <textarea
               className="outputTextArea"
-              placeholder={loading ? "loading..." : "translated text"}
+              placeholder={loading ? "loading..." : "Translated text"}
               readOnly
               value={inputTextArea.length !== 0 ? outputTextArea : ""}
             ></textarea>
             <div className="clip1">
               <CopyToClipboard text={outputTextArea}>
-                <ContentPaste
-                  fontSize="small"
-                  sx={{ position: "absolute", bottom: "12px", right: "10px" }}
-                />
+                <Tooltip title="Copy">
+                  <ContentPaste
+                    fontSize="small"
+                    sx={{ position: "absolute", bottom: "12px", right: "10px" }}
+                  />
+                </Tooltip>
               </CopyToClipboard>
             </div>
           </div>
