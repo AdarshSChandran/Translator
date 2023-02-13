@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { ContentPaste, SyncAlt } from "@mui/icons-material";
 import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import axios from "axios";
@@ -26,12 +28,12 @@ const Body = () => {
         {
           headers: {
             "X-RapidAPI-Key":
-              "f4686a7ffemsh470bb22098c5827p1170c3jsnd2fb5d7ed901",
+              "481f8199afmshe2ef1e26b1ab0d4p1fd6b4jsn1ddb1eb26cb3",
             "X-RapidAPI-Host": "text-translator2.p.rapidapi.com",
           },
         }
       );
-      if (languages.status == 200) {
+      if (languages.status === 200) {
         setTotalLanguages(languages.data.data.languages);
       }
     } catch (error) {
@@ -39,7 +41,7 @@ const Body = () => {
     }
   };
 
-  const Translate = async () => {
+  const translate = async () => {
     try {
       setLoading(true);
       const encodedParams = new URLSearchParams();
@@ -54,19 +56,15 @@ const Body = () => {
           headers: {
             "content-type": "application/x-www-form-urlencoded",
             "X-RapidAPI-Key":
-              "f4686a7ffemsh470bb22098c5827p1170c3jsnd2fb5d7ed901",
+              "481f8199afmshe2ef1e26b1ab0d4p1fd6b4jsn1ddb1eb26cb3",
             "X-RapidAPI-Host": "text-translator2.p.rapidapi.com",
           },
         }
       );
-      if (res.status == 200) {
+      if (res.status === 200) {
         setoutputTextArea(res.data.data.translatedText);
       }
       setLoading(false);
-
-      // .then((res) => {
-      //   console.log(res.data);
-      // });
     } catch (err) {
       setLoading(false);
       console.log("error is ", err);
@@ -78,28 +76,19 @@ const Body = () => {
   }, []);
 
   useEffect(() => {
-    Translate();
+    translate();
   }, [inputTextArea]);
 
   useEffect(() => {
-    Translate();
+    translate();
   }, [outputLanguage]);
-
-  // console.log(inputLanguage);
 
   const handleExchange = () => {
     setinputLanguage(inputLanguage ? outputLanguage : inputLanguage);
     setoutputLanguage(outputLanguage ? inputLanguage : outputLanguage);
-    setinputTextArea(inputTextArea ? outputTextArea : inputTextArea);
-    setoutputTextArea(outputTextArea ? inputTextArea : outputTextArea);
+    // setinputTextArea(inputTextArea ? outputTextArea : inputTextArea);
+    // setoutputTextArea(outputTextArea ? inputTextArea : outputTextArea);
   };
-
-  // console.log(outputTextArea);
-  //   const handleChange = (object,value)=>{
-  //     console.log(value.name);
-  //   }
-
-  // console.log(inputLanguage.name);
 
   return (
     <Container>
@@ -110,7 +99,6 @@ const Body = () => {
               onChange={(object, value) => {
                 setinputLanguage({ name: value.name, code: value.code });
               }}
-              // key={defaultlanguage}
               value={inputLanguage}
               defaultValue={{ code: "en", name: "English" }}
               disablePortal
@@ -118,15 +106,19 @@ const Body = () => {
               isOptionEqualToValue={(option, value) => option.id === value.id}
               options={Totallanguages}
               getOptionLabel={(Totallanguages) => Totallanguages.name || ""}
-              // isOptionEqualToValue={(option, value) => option.id === value.id}
-              sx={{ width: "100%", backgroundColor: "#ffffff" }}
+              sx={{
+                width: "100%",
+                backgroundColor: "#ffffff",
+                "&:hover": {
+                  background: "#f5f7f9",
+                },
+              }}
               popupIcon=""
               renderOption={(props, option) => (
                 <Box component="li" {...props} key={option.code}>
                   {option.name}
                 </Box>
               )}
-              //   isOptionEqualToValue={(option, value) => option.code === value}
               renderInput={(params) => {
                 return (
                   <TextField
@@ -134,7 +126,13 @@ const Body = () => {
                     label=""
                     sx={{
                       "& fieldset": { border: "none" },
-                      input: { textAlign: "center" },
+                      input: {
+                        textAlign: "center",
+                        cursor: "pointer",
+                        "&:hover": {
+                          background: "#f5f7f9",
+                        },
+                      },
                     }}
                     placeholder="Select Language"
                   />
@@ -142,16 +140,26 @@ const Body = () => {
               }}
             />
           </div>
+
           <div className="arrow" onClick={handleExchange}>
-            <SyncAlt />{" "}
+            <SyncAlt
+              sx={{
+                cursor: "pointer",
+                fontSize:"20px",
+                "&:hover": {
+                  background: "#f5f7f9",
+                },
+              }}
+            />
           </div>
+
           <div className="outputLanguage">
             <Autocomplete
               disablePortal
               value={outputLanguage}
               defaultValue={{ name: "Hindi", code: "hi" }}
               key={Totallanguages.code}
-              onChange={(object, value) => {
+              onChange={(_, value) => {
                 setoutputLanguage({ name: value.name, code: value.code });
               }}
               id="combo-box-demo"
@@ -159,7 +167,13 @@ const Body = () => {
               getOptionLabel={(Totallanguages) => Totallanguages.name || ""}
               // isOptionEqualToValue={(option, value) => option.id === value.id}
               popupIcon=""
-              sx={{ width: "100%", backgroundColor: "#ffffff" }}
+              sx={{
+                width: "100%",
+                backgroundColor: "#ffffff",
+                "&:hover": {
+                  background: "#f5f7f9",
+                },
+              }}
               renderOption={(props, option) => (
                 <Box component="li" {...props} key={option.code}>
                   {option.name}
@@ -171,17 +185,20 @@ const Body = () => {
                   label=""
                   sx={{
                     "& fieldset": { border: "none" },
-                    input: { textAlign: "center" },
-                    // "display":"flex",
+                    input: {
+                      textAlign: "center",
+                      cursor: "pointer",
+                      "&:hover": {
+                        background: "#f5f7f9",
+                      },
+                    },
                   }}
-                  // inputProps={{min: 0, style: { textAlign: 'center' }}}
                   placeholder="Select Language"
                 />
               )}
             />
           </div>
         </div>
-        {/* <div>{showpopup && <Popup /> }</div> */}
         <div className="bottom">
           <div className="InputText">
             <textarea
@@ -190,8 +207,6 @@ const Body = () => {
               onInput={(e) => {
                 setinputTextArea(e.target.value);
               }}
-              // onKeyUp={abc}
-              // onKeyDown={clrr}
             ></textarea>
             <div className="clip1">
               <CopyToClipboard text={inputTextArea}>
