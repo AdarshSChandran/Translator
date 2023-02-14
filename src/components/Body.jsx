@@ -92,8 +92,8 @@ const Body = () => {
   const handleExchange = () => {
     setinputLanguage(inputLanguage ? outputLanguage : inputLanguage);
     setoutputLanguage(outputLanguage ? inputLanguage : outputLanguage);
-    // setinputTextArea(inputTextArea ? outputTextArea : inputTextArea);
-    // setoutputTextArea(outputTextArea ? inputTextArea : outputTextArea);
+    setinputTextArea(inputTextArea ? outputTextArea : inputTextArea);
+    setoutputTextArea(outputTextArea ? inputTextArea : outputTextArea);
   };
 
   return (
@@ -208,6 +208,7 @@ const Body = () => {
         <div className="bottom">
           <div className="InputText">
             <textarea
+              value={inputTextArea}
               className="inputTextArea"
               placeholder="Enter Text"
               onInput={(e) => {
